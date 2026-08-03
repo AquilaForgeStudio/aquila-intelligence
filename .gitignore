@@ -1,1 +1,9 @@
-data/private/
+.data/private/
+venv/
+.venv
+
+__pycache__/
+.vscode/
+
+.env
+.idea/
