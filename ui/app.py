@@ -4,6 +4,7 @@ from ui.components.sidebar import Sidebar
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
 
+
 class MainUi(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -11,17 +12,31 @@ class MainUi(ctk.CTk):
         self.title("수리 AI")
         self.geometry("1200x800")
 
-        # 행
+        # 전체 레이아웃
         self.grid_rowconfigure(0, weight=1)
 
-        # 열 비율 (2 : 8)
-        self.grid_columnconfigure(0, weight=2)
-        self.grid_columnconfigure(1, weight=8)
+        # Sidebar는 폭을 직접 관리하므로 weight=0
+        self.grid_columnconfigure(0, weight=0)
+
+        # Main은 남은 공간을 모두 차지
+        self.grid_columnconfigure(1, weight=1)
 
         # Sidebar
         self.sidebar = Sidebar(self)
-        self.sidebar.grid(row=0, column=0, sticky="nsew")
+        self.sidebar.grid(
+            row=0,
+            column=0,
+            sticky="ns"
+        )
 
         # Main
-        self.main = ctk.CTkFrame(self)
-        self.main.grid(row=0, column=1, sticky="nsew")
+        self.main = ctk.CTkFrame(
+            self,
+            fg_color="#1b1b1b"
+        )
+
+        self.main.grid(
+            row=0,
+            column=1,
+            sticky="nsew"
+        )

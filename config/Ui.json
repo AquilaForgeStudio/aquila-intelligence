@@ -1,0 +1,34 @@
+{
+  "Sidebar": {
+    "Width": {
+      "Collapsed": 70,
+      "Expanded": 220
+    },
+
+    "Button": {
+      "Height": 46,
+      "CornerRadius": 10,
+      "PaddingX": 8,
+      "PaddingY": 6,
+      "Gap": 6,
+      "NormalColor": "#292929",
+      "HoverColor": "#1b1b1b"
+    },
+
+    "Icon": {
+      "Size": [24, 24],
+      "AreaWidth": 48,
+      "AreaHeight" : 46
+    },
+
+    "Text": {
+      "FontSize": 14,
+      "ShowDelay": 80
+    },
+
+    "Animation": {
+      "Duration": 180,
+      "FPS": 60
+    }
+  }
+}
