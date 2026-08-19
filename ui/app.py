@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from ui.components.sidebar import Sidebar
+from ui.splash import SplashFrame
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -40,3 +41,12 @@ class MainUi(ctk.CTk):
             column=1,
             sticky="nsew"
         )
+
+        self.splash = SplashFrame(self)
+        self.splash.place(
+    relx=0,
+    rely=0,
+    relwidth=1,
+    relheight=1
+)
+        self.splash.lift()
