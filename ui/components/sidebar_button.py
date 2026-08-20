@@ -2,11 +2,11 @@ import customtkinter as ctk
 from PIL import Image
 from typing import Callable
 from config.reader import UI_CONFIG
-from utils import color
+from utils import color , easing
 
 
 class SidebarButton(ctk.CTkFrame):
-    def __init__(self, master, icon: str, text: str, command: Callable):
+    def __init__(self, master, icon: str, text: str, command: Callable, expanded : bool = False):
         """
         Sidebar의 버튼을 생성합니다.
         """
@@ -21,12 +21,14 @@ class SidebarButton(ctk.CTkFrame):
         self.icon = icon
         self.text = text
         self.command = command
-
+        self.expanded = expanded
         self.normal_color = UI_CONFIG["Sidebar"]["Button"]["NormalColor"]
         self.hover_color = UI_CONFIG["Sidebar"]["Button"]["HoverColor"]
         self.current_color = self.hover_color
 
         self.animation_step = 0
+        self.position_step = 0
+        self.position_animation_id = None
 
         self.animation_id = None
 
@@ -57,7 +59,6 @@ class SidebarButton(ctk.CTkFrame):
             side="left",
             padx=(8, 4)
         )
-
         # 텍스트 생성
         self.text_label = ctk.CTkLabel(
             self,
@@ -65,11 +66,12 @@ class SidebarButton(ctk.CTkFrame):
             anchor="w"
         )
 
-        self.text_label.pack(
-            side="left",
-            fill="x",
-            expand=True
-        )
+        if self.expanded :
+            self.text_label.pack(
+                side="left",
+                fill="x",
+                expand=True
+            )
 
     def bind_events(self):
         widgets = [self, self.icon_label, self.text_label]
@@ -159,3 +161,81 @@ class SidebarButton(ctk.CTkFrame):
         self.icon_lable.configure(image=self.icon_image)
         self.text_label.configure(text=self.text)
         self.command = command
+
+    def expand(self):
+        duration = 30
+
+        if self.position_animation_id is not None:
+            self.after_cancel(self.position_animation_id)
+
+        if self.position_step >= duration:
+            self.position_step = duration
+            self.position_animation_id = None
+            return
+
+        # 진행도
+        t = self.position_step / duration
+
+        # easing
+        eased = easing.ease_out_cubic(t)
+
+        # SidebarButton 크기/위치 애니메이션
+        # ...
+        width = 70 + (220 - 70) * eased
+
+        self.configure(
+            width=round(width)
+        )
+
+        
+        # 중간에 텍스트 등장
+        if self.position_step >= 15:
+            self.text_label.pack(
+                side="left",
+                fill="x",
+                expand=True
+                        )
+
+        self.position_step += 1
+
+        self.position_animation_id = self.after(
+            16,
+            self.expand
+        )
+
+    def collapse(self) :
+        duration = 30
+
+        if self.position_animation_id is not None:
+            self.after_cancel(self.position_animation_id)
+
+        if self.position_step >= duration:
+            self.position_step = duration
+            self.position_animation_id = None
+            return
+
+        # 진행도
+        t = self.position_step / duration
+
+        # easing
+        eased = easing.ease_in_cubic(t)
+
+        # SidebarButton 크기/위치 애니메이션
+        # ...
+        width = 220 - (220 - 70) * eased
+
+        self.configure(
+            width=round(width)
+        )
+
+        
+        # 중간에 텍스트 등장
+        if self.position_step >= 15:
+            self.text_label.pack_forget()
+
+        self.position_step += 1
+
+        self.position_animation_id = self.after(
+            16,
+            self.collapse
+        )
