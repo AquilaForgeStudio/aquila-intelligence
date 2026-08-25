@@ -1,4 +1,3 @@
-from ui.app import MainUi
+from core import booter
 
-app = MainUi()
-app.mainloop()
+booter.boot()

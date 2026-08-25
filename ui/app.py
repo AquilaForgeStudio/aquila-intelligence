@@ -1,6 +1,8 @@
 import customtkinter as ctk
 from ui.components.sidebar import Sidebar
 from ui.splash import SplashFrame
+from ui.page_manager import PageManager
+
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -21,6 +23,10 @@ class MainUi(ctk.CTk):
 
         # Main은 남은 공간을 모두 차지
         self.grid_columnconfigure(1, weight=1)
+
+        #page manager 로드
+        self.page_manager = PageManager(self)
+        self.page_manager.scan_pages()
 
         # Sidebar
         self.sidebar = Sidebar(self)
@@ -50,3 +56,5 @@ class MainUi(ctk.CTk):
     relheight=1
 )
         self.splash.lift()
+        self.page_manager.show('dashboard')
+    

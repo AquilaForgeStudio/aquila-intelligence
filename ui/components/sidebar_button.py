@@ -6,7 +6,7 @@ from utils import color , easing
 
 
 class SidebarButton(ctk.CTkFrame):
-    def __init__(self, master, icon: str, text: str, command: Callable, expanded : bool = False):
+    def __init__(self, master, icon=str, text=str, command=callable, expanded : bool = False, tx_color="#FFFFFF"):
         """
         Sidebar의 버튼을 생성합니다.
         """

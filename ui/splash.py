@@ -1,7 +1,8 @@
 import customtkinter as ctk
 import tkinter as tk
 from PIL import Image, ImageTk
-
+from utils import tts
+from data.reader import USERDATA
 
 class SplashFrame(ctk.CTkFrame):
 
@@ -322,6 +323,7 @@ class SplashFrame(ctk.CTkFrame):
     # ==================================================
 
     def close(self):
-
         if self.winfo_exists():
             self.destroy()
+
+        tts.speak(f"안녕하세요,  {USERDATA['userNickName']}님 좋은 오후입니다!")
