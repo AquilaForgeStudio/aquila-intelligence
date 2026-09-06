@@ -19,3 +19,8 @@ Thumbs.db
 
 # Project Data
 data/private/
+
+# Pyinstaller Files
+dist/
+build/
+main.spec

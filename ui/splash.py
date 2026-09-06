@@ -1,8 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 from PIL import Image, ImageTk
-from utils import tts
-from data.reader import USERDATA
+from utils import tts, resource
 
 class SplashFrame(ctk.CTkFrame):
 
@@ -41,7 +40,7 @@ class SplashFrame(ctk.CTkFrame):
         # =========================
 
         logo = Image.open(
-            "assets/BI/Aquila-Logo.png"
+            resource.resource_path("assets/BI/Aquila-Logo.png")
         )
 
         logo = logo.resize(
@@ -65,9 +64,9 @@ class SplashFrame(ctk.CTkFrame):
         self.text = self.canvas.create_text(
             -10000,
             -10000,
-            text="Aquila AI",
+            text="Aquila\nIntelligence",
             fill="#E0E0E0",
-            font=("Russo One", 80),
+            font=("Russo One", 40),
             anchor="w"
         )
 
@@ -325,5 +324,3 @@ class SplashFrame(ctk.CTkFrame):
     def close(self):
         if self.winfo_exists():
             self.destroy()
-
-        tts.speak(f"안녕하세요,  {USERDATA['userNickName']}님 좋은 오후입니다!")

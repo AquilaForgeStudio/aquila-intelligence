@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
 from typing import Callable
-from config.reader import UI_CONFIG
+from utils.reader import UI_CONFIG
 from utils import color , easing
 
 
