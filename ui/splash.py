@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 from PIL import Image, ImageTk
-from utils import tts, resource
+from utils import tts, resource, reader
 
 class SplashFrame(ctk.CTkFrame):
 
@@ -75,6 +75,7 @@ class SplashFrame(ctk.CTkFrame):
         # =========================
 
         self.animation_running = False
+        self.Running = False
 
         self.canvas.bind(
             "<Configure>",
@@ -314,7 +315,7 @@ class SplashFrame(ctk.CTkFrame):
         # 이 부분을 외부에서 close() 호출하는 구조로 변경
         self.after(
             800,
-            self.close
+            lambda : setattr(self, 'Running', True)
         )
 
     # ==================================================
@@ -322,5 +323,12 @@ class SplashFrame(ctk.CTkFrame):
     # ==================================================
 
     def close(self):
+        if not self.Running:
+            self.after(100,self.close)
+            return
         if self.winfo_exists():
             self.destroy()
+            self.Running = False
+
+            if reader.USERDATA["setting"]["sound"]["tts"]:
+                self.after(100, tts.speak, f"{reader.USERDATA['userNickName']}님, 환영합니다.")

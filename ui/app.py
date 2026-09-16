@@ -12,7 +12,7 @@ class MainUi(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("수리 AI")
+        self.title("Aquila Intelligence")
         self.geometry("1200x800")
 
         # 전체 레이아웃
@@ -49,6 +49,7 @@ class MainUi(ctk.CTk):
         )
 
         self.splash = SplashFrame(self)
+        self.splash.close()
         self.splash.place(
     relx=0,
     rely=0,

@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from data.reader import USERDATA
+from utils.reader import USERDATA
 
 class DashboardPage(ctk.CTkFrame):
     def __init__(self, master):
