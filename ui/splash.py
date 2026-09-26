@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 from PIL import Image, ImageTk
-from utils import tts, resource, reader
+from utils import tts, resource, reader, etc
 
 class SplashFrame(ctk.CTkFrame):
 
@@ -331,4 +331,4 @@ class SplashFrame(ctk.CTkFrame):
             self.Running = False
 
             if reader.USERDATA["setting"]["sound"]["tts"]:
-                self.after(100, tts.speak, f"{reader.USERDATA['userNickName']}님, 환영합니다.")
+                self.after(100, tts.speak, f"{reader.USERDATA['userNickName']}님, {etc.CurrentTimeReturnSay()}")

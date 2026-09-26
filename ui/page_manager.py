@@ -2,6 +2,7 @@ import os
 import importlib
 import inspect
 import customtkinter as ctk
+from utils import resource
 
 
 class PageManager:
@@ -35,7 +36,7 @@ class PageManager:
             del self.pages[name]
 
     def scan_pages(self):
-        page_dir = "ui/pages"
+        page_dir = resource.resource_path("ui", "pages")
 
         for filename in os.listdir(page_dir):
             if not filename.endswith(".py"):
@@ -59,8 +60,8 @@ class PageManager:
             ):
                 # CTkFrame을 상속한 클래스인지 확인
                 if (
-                    issubclass(page_class, ctk.CTkFrame)
-                    and page_class is not ctk.CTkFrame
+                    issubclass(page_class, ctk.CTkScrollableFrame)
+                    and page_class is not ctk.CTkScrollableFrame
                 ):
                     print(
                         "Page 클래스 발견:",
